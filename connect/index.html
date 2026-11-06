@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Connect Champ</title>
+<style>
+  body{font:18px/1.45 system-ui,sans-serif;max-width:36rem;margin:2rem auto;padding:0 1rem}
+  a.btn,button{display:inline-block;background:#3e6ae1;color:#fff;text-decoration:none;border:0;border-radius:8px;padding:.75rem 1.1rem;font:inherit;cursor:pointer}
+  .note{color:#444;font-size:15px}
+  code{word-break:break-all}
+</style>
+<h1>Connect Champ</h1>
+<p>This opens Tesla’s official authorization page for <strong>Champion Warm up</strong>.</p>
+<p class="note">If you’re already signed into Tesla, it may skip the login screen and jump straight to the next page. That’s normal — it is <em>not</em> reusing an old link.</p>
+<p><a class="btn" id="go" href="https://auth.tesla.com/oauth2/v3/authorize?response_type=code&amp;client_id=f4b04416-7b64-4d18-86ab-c2e434d81a86&amp;redirect_uri=https%3A%2F%2Fbrandonchampion.github.io%2Fcallback%2F&amp;scope=openid%20offline_access%20vehicle_device_data%20vehicle_cmds%20vehicle_location%20vehicle_charging_cmds&amp;state=2ee0af61799f189c&amp;locale=en-US&amp;prompt_missing_scopes=true">Continue to Tesla</a></p>
+<p class="note">After you approve, you’ll land on a page that says <strong>Almost done</strong>. Copy that whole page address and paste it back once.</p>
+<p class="note">Do not reopen an old callback link from chat history — those codes are one-time and already used.</p>
+<script>
+// Cache-safe entry: always navigate via replace with a unique nonce so a cached
+// HTML shell cannot stick you on a prior authorize completion URL.
+(function(){
+  var base = 'https://auth.tesla.com/oauth2/v3/authorize?response_type=code&client_id=f4b04416-7b64-4d18-86ab-c2e434d81a86&redirect_uri=https%3A%2F%2Fbrandonchampion.github.io%2Fcallback%2F&scope=openid%20offline_access%20vehicle_device_data%20vehicle_cmds%20vehicle_location%20vehicle_charging_cmds&state=2ee0af61799f189c&locale=en-US&prompt_missing_scopes=true';
+  var link = document.getElementById('go');
+  var url = base + '&nonce=' + Date.now().toString(36);
+  link.href = url;
+})();
+</script>
+</html>
