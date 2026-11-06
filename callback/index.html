@@ -1,1 +1,42 @@
-<!doctype html><meta name=viewport content="width=device-width"><body style="font:18px sans-serif;padding:20px"><h2>Almost done</h2><p>Copy this whole page address and paste it back to Tesla Ready.</p><script>document.write('<p style="word-break:break-all">'+location.href+'</p>')</script>
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Almost done</title>
+<style>
+  body{font:18px/1.45 system-ui,sans-serif;max-width:40rem;margin:2rem auto;padding:0 1rem}
+  .box{background:#f4f6fb;border-radius:10px;padding:1rem;word-break:break-all}
+  .warn{background:#fff4e5;border-left:4px solid #e6a23c;padding:.75rem 1rem;margin:1rem 0}
+  .err{background:#fdecea;border-left:4px solid #d93025;padding:.75rem 1rem;margin:1rem 0}
+  a.btn{display:inline-block;background:#3e6ae1;color:#fff;text-decoration:none;border-radius:8px;padding:.65rem 1rem;margin-top:.5rem}
+</style>
+<h1>Almost done</h1>
+<div id="main"></div>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var code = p.get('code');
+  var err = p.get('error');
+  var desc = p.get('error_description') || '';
+  var el = document.getElementById('main');
+  if (err) {
+    el.innerHTML = '<div class="err"><strong>Tesla returned an error:</strong> ' +
+      (err + (desc ? (' — ' + desc) : '')).replace(/[<>&]/g, function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c];}) +
+      '</div><p><a class="btn" href="/charging/">Start over</a></p>';
+    return;
+  }
+  if (!code) {
+    el.innerHTML = '<div class="warn">No authorization code on this page. Open <a href="/charging/">Connect Champ</a> first — don’t reuse an old chat link.</div>';
+    return;
+  }
+  var href = location.href;
+  el.innerHTML =
+    '<p>Copy this <strong>whole</strong> page address and paste it back to Grok <strong>once</strong>.</p>' +
+    '<div class="box" id="url"></div>' +
+    '<div class="warn"><strong>One-time code.</strong> If reconnect already failed, do <em>not</em> paste this same address again. Tap Start over for a fresh code.</div>' +
+    '<p><a class="btn" href="/charging/">Start over for a fresh code</a></p>';
+  document.getElementById('url').textContent = href;
+})();
+</script>
+</html>
